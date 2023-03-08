@@ -1,5 +1,6 @@
 package com.ahmfarisi.footballplayer;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -38,5 +39,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         String query = "DROP TABLE IF EXISTS " + TABLE_NAME;
         db.execSQL(query);
         onCreate(db);
+    }
+
+    public long tambahPlayer(String nama, String nomor, String klub){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(FIELD_NAMA, nama);
+        cv.put(FIELD_NOMOR, nomor);
+        cv.put(FIELD_KLUB, klub);
+
+        long eksekusi = db.insert(TABLE_NAME, null, cv);
+        return eksekusi;
     }
 }
